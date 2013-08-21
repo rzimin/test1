@@ -1,0 +1,35 @@
+<%= form_for(@question) do |f| %>
+  <% if @question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% @question.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_field :content %>
+  </div>
+  
+  <% if @question.pools.any? %>
+    <p>Категории</p>
+    <% @question.pools.each do |pool| %>
+      <%= pool.name %><br>
+    <% end %>
+  <% end %>
+
+  <% @pools.each do |pool| %>
+    <%= check_box_tag('pool[]', pool.id, !QuestionPool.find_by(question_id: @question.id, pool_id: pool.id).nil? ) %>
+    <%= label_tag(pool.id, pool.name) %><br>
+  <% end %>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
