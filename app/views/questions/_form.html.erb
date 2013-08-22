@@ -16,18 +16,22 @@
     <%= f.text_field :content %>
   </div>
   
-  <% if @question.pools.any? %>
-    <p>Категории</p>
-    <% @question.pools.each do |pool| %>
-      <%= pool.name %><br>
-    <% end %>
-  <% end %>
+
+    <p>Пулы</p>
 
   <% if !@pools.nil? %>
   <% @pools.each do |pool| %>
     <%= check_box_tag('pool[]', pool.id, !QuestionPool.find_by(question_id: @question.id, pool_id: pool.id).nil? ) %>
     <%= label_tag(pool.id, pool.name) %><br>
   <% end %>
+  <% end %>
+
+  <p>Варианты ответов</p>
+  <% if !@options.nil? %>
+    <% @options.each do |option| %>
+      <%= check_box_tag('option[]', option.id, Option.find(option.id).correct ) %>
+      <%= label_tag(option.id, option.text) %><br>
+    <% end %>
   <% end %>
 
 

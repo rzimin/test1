@@ -24,6 +24,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @pools = Pool.all
+    @options = Option.where(question_id: params[:id])
     @used_pools = QuestionPool.where(question_id: params[:id])
   end
 

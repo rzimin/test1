@@ -1,4 +1,6 @@
 Test1::Application.routes.draw do
+  resources :options
+
   resources :pools
 
   resources :questions
