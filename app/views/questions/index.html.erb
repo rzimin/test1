@@ -13,7 +13,15 @@
   <tbody>
     <% @questions.each do |question| %>
       <tr>
-        <td><%= question.content %> ( <%= question.pools.first.name if question.pools.any? %> ) </td>
+        <td><%= question.content %>
+          <% if question.pools.any? %>
+            (
+              <% question.pools.each do |pool| %>
+                <%= pool.name + ' - ' %> 
+              <% end %>
+            )
+          <% end %>
+        </td>
         <td><%= link_to 'Show', question %></td>
         <td><%= link_to 'Edit', edit_question_path(question) %></td>
         <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>

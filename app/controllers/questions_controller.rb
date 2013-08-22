@@ -15,7 +15,10 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
+  
+    @pools = Pool.all
     @question = Question.new
+  
   end
 
   # GET /questions/1/edit
@@ -28,9 +31,19 @@ class QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
+    
+    
 
     respond_to do |format|
       if @question.save
+        qid = @question.id
+        unless params[:pool].nil? 
+          new_pools = params[:pool].each.map(&:to_i)
+          new_pools.each do |pool|
+            QuestionPool.find_or_create_by(question_id: qid, pool_id: pool)
+          end
+        end
+
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render action: 'show', status: :created, location: @question }
       else
@@ -47,7 +60,11 @@ class QuestionsController < ApplicationController
       #if @question.update(question_params)
     current_pools = Question.find(params[:id]).pools.pluck(:id)
     logger.info "----- current pools ---" + current_pools.to_s
+    unless params[:pool].nil?
     new_pools = params[:pool].each.map(&:to_i)
+    else new_pools = []
+    end
+
     logger.info "----- new pools ---" + new_pools.to_s
     candidate_del = current_pools - new_pools
     logger.info candidate_del

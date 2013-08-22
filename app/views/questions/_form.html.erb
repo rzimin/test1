@@ -23,9 +23,11 @@
     <% end %>
   <% end %>
 
+  <% if !@pools.nil? %>
   <% @pools.each do |pool| %>
     <%= check_box_tag('pool[]', pool.id, !QuestionPool.find_by(question_id: @question.id, pool_id: pool.id).nil? ) %>
     <%= label_tag(pool.id, pool.name) %><br>
+  <% end %>
   <% end %>
 
 
