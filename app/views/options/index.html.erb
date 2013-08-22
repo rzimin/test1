@@ -1,6 +1,6 @@
 <h1>Список вариантов ответов</h1>
 
-<table>
+<table class="table table-stripped">
   <thead>
     <tr>
       <th>Question</th>
@@ -14,14 +14,17 @@
 
   <tbody>
     <% @options.each do |option| %>
+      <%= raw('<tr><td colspan="6"><p></p></td></tr>') if option.question.id != @old %>
       <tr>
-        <td><%= option.question_id %></td>
+        <td><span class="badge badge-info"><%= option.question_id %></span></td>
         <td><%= option.text %></td>
-        <td><%= option.correct %></td>
-        <td><%= link_to 'Show', option %></td>
-        <td><%= link_to 'Edit', edit_option_path(option) %></td>
-        <td><%= link_to 'Destroy', option, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= raw('<a href="#" class="btn btn-success btn-mini disabled"><i class="icon-white icon-ok"></i></a>') if option.correct %></td>
+        <td><%= link_to 'Показать', option %></td>
+        <td><%= link_to 'Редактировать', edit_option_path(option) %></td>
+        <td><%= link_to 'Destroy', option, method: :delete, data: { confirm: 'Точно удалить?' } %></td>
+        <% @old = option.question_id %>
       </tr>
+      <tr></tr>
     <% end %>
   </tbody>
 </table>

@@ -1,6 +1,6 @@
 <h1>Список вопросов</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Content</th>
@@ -13,33 +13,36 @@
   <tbody>
     <% @questions.each do |question| %>
       <tr>
-        <td><%= question.content %>
+        <td><span class="badge badge-info"><%= question.id %></span> <%= question.content %>
           <% if question.pools.any? %>
-            (
+ </br></br>
               <% question.pools.each do |pool| %>
-                <%= pool.name + ' - ' %> 
+                <span class="label"><%= pool.name %></span>
               <% end %>
-            )
+ 
           <% end %>
         </td>
         <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_question_path(question), class: "btn btn-mini"  %></td>
+        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-mini" %></td>
       </tr>
 
        <tr>
        
         <td colspan="4">
-          <ul>
-          <% question.options.each do |option| %>
-          <li>
-            <%= option.text  %> <%= link_to 'Редактировать', edit_option_path(option) %>
-          </li>   
-           <% end %> 
-         </ul>
-
-
+          <ul class="unstyled">
+            <% question.options.each do |option| %>
+              <li class="strong">
+                
+                <%= link_to raw('<i class="icon-pencil"></i>'), edit_option_path(option) , class: "btn btn-mini" %>
+                <%= raw('<a href="#" class="btn btn-success btn-mini disabled"><i class="icon-white icon-ok"></i></a>') if option.correct %>
+                <%= option.text %>
+                
+              </li>   
+            <% end %> 
+          </ul>
         </td>
+        
       </tr>
 
     <% end %>

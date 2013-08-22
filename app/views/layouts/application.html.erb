@@ -1,16 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Test1</title>
+  <title>Тестирование</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
+
+<div class="container">
+  <div class="row-fluid">
+    <div class="span2">
+      <!--Sidebar content-->
+    </div>
+    <div class="span10">
+
+<div class="masthead">
+<ul class="nav nav-pills pull-right">
+
+  <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="<%= questions_path %>">
+        Вопросы
+       <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+    	<li><a href="<%= questions_path %>">Список</a></li>
+       	<li><a href="<%= new_question_path %>">Создать</a></li>
+       	<!-- links -->
+    </ul>
+  </li>
+
+
+	<!-- OPTIONS -->
+  <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="<%= options_path %>">
+        Ответы
+       <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+    	<li><a href="<%= options_path %>">Список</a></li>
+       	<li><a href="<%= new_option_path %>">Создать</a></li>
+       	<!-- links -->
+    </ul>
+  </li>
+
+
+   <li><a href="#">Сиськи</a></li>
+</ul>
+ <h3 class="muted">Тестирование</h3>
+</div>
+
+<hr>
+
 <%= yield %>
 <%= debug(params) %>
 <%= debug(@pools) %>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

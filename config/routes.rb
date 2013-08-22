@@ -1,4 +1,6 @@
 Test1::Application.routes.draw do
+  root "static_pages#home"
+
   resources :options
 
   resources :pools
