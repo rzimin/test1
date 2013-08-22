@@ -1,4 +1,4 @@
-<h1>Listing questions</h1>
+<h1>Список вопросов</h1>
 
 <table>
   <thead>
@@ -26,10 +26,28 @@
         <td><%= link_to 'Edit', edit_question_path(question) %></td>
         <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+
+       <tr>
+       
+        <td colspan="4">
+          <ul>
+          <% question.options.each do |option| %>
+          <li>
+            <%= option.text  %> <%= link_to 'Редактировать', edit_option_path(option) %>
+          </li>   
+           <% end %> 
+         </ul>
+
+
+        </td>
+      </tr>
+
     <% end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'Новый вопрос', new_question_path %>
+<%= link_to 'Список пулов', pools_path %>
+<%= link_to 'Список вариантов', options_path %>

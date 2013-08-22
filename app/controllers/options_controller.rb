@@ -4,7 +4,7 @@ class OptionsController < ApplicationController
   # GET /options
   # GET /options.json
   def index
-    @options = Option.all
+    @options = Option.all.order(:question_id)
   end
 
   # GET /options/1
